@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الاختبار الأول - الفيزياء</title>
+<style>
+*{
+    box-sizing: border-box;
+    font-family: Tahoma, Arial, sans-serif;
+}
+body{
+    margin: 0;
+    background: #f1f5f9;
+    color: #1e293b;
+    padding-bottom: 40px;
+}
+header{
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+    padding: 18px 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.developer-tag {
+    font-size: 12px;
+    background: rgba(0,0,0,0.15);
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: #fde047;
+}
+.header-title {
+    text-align: center;
+}
+header h2 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+.student-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #e2e8f0;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.container{
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+.progress-bar-card {
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    font-weight: bold;
+    font-size: 14px;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+}
+.question-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    display: none;
+}
+.question-card.active {
+    display: block;
+}
+.question-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.option-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    background: #f8fafc;
+}
+.option-item:hover {
+    border-color: #3b82f6;
+    background: #f1f5f9;
+}
+.option-item.selected {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+.option-circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.option-item.selected .option-circle {
+    border-color: #2563eb;
+    background: #2563eb;
+    box-shadow: inset 0 0 0 4px #ffffff;
+}
+.option-text {
+    font-size: 15px;
+    color: #334155;
+    font-weight: 500;
+}
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+.nav-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    flex: 1;
+}
+.nav-btn:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+}
+.submit-btn {
+    display: none;
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.2);
+    transition: opacity 0.2s;
+}
+.submit-btn:hover {
+    opacity: 0.9;
+}
+#alertModal, #successModal {
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(15, 23, 42, 0.6); 
+    backdrop-filter: blur(5px);
+    z-index: 1000; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+}
+.modal-content {
+    background: #ffffff; 
+    padding: 30px 20px; 
+    border-radius: 20px; 
+    width: 100%; 
+    max-width: 360px; 
+    text-align: center; 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <div class="developer-tag">Ahmed_3mr ⚡</div>
+        <div id="studentDisplay" class="student-badge">الطالب/ة: جاري التحميل...</div>
+    </div>
+    <div class="header-title">
+        <h2>📝 اختبار الدرس الأول: متجهات السرعة</h2>
+    </div>
+</header>
+
+<div class="container">
+    <div class="progress-bar-card">
+        <span id="questionCounter">السؤال 1 من 30</span>
+        <span id="answeredStatus" style="color: #d97706;">المحلول: 0 / 30</span>
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <div class="nav-buttons">
+        <button id="prevBtn" class="nav-btn" onclick="prevQuestion()" disabled>السابق ←</button>
+        <button id="nextBtn" class="nav-btn" onclick="nextQuestion()">التالي →</button>
+    </div>
+
+    <button id="submitBtn" class="submit-btn" onclick="trySubmitQuiz()">تسليم الاختبار 🚀</button>
+</div>
+
+<!-- مودال التنبيه عند عدم اكتمال الحل -->
+<div id="alertModal">
+    <div class="modal-content">
+        <div style="font-size: 40px; margin-bottom: 10px;">⚠️</div>
+        <h3 style="color: #1e3a8a; margin-top: 0; font-size: 18px;">عذراً، لم تكمل الاختبار!</h3>
+        <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">يجب عليك الإجابة على جميع الأسئلة قبل تسليم الاختبار.</p>
+        <button onclick="closeAlertModal()" style="background: #2563eb; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer; width: 100%;">حسناً، سأكمل الأسئلة</button>
+    </div>
+</div>
+
+<!-- مودال النجاح عند التسليم -->
+<div id="successModal">
+    <div class="modal-content">
+        <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
+        <h3 style="color: #16a34a; margin-top: 0; font-size: 18px;">تم التسليم بنجاح</h3>
+        <p style="font-size: 14px; color: #475569; margin-bottom: 20px; line-height: 1.6;">شكرا ليك سيتم ابلاغك بالنتيجه من خلال المدرس.</p>
+        <button onclick="finishAndRedirect()" style="background: #16a34a; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer; width: 100%;">حسناً</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        /* 20 سؤالاً نظرياً وفكرياً */
+        { id: 1, title: "1. أي من الكميات الآتية تُعد كمية متجهة؟", options: ["الكتلة", "الزمن", "الإزاحة", "الدرجة الحرارية"], correct: 2, answer: null },
+        { id: 2, title: "2. الكميات الفيزيائية التي يلزم لتحديدها تعريفا تاماً معرفة مقدارها فقط تُسمى:", options: ["كميات متجهة", "كميات قياسية", "كميات أساسية", "كميات مشتقة"], correct: 1, answer: null },
+        { id: 3, title: "3. تحليل المتجه إلى مركبتين متعامدتين يعتمد أساساً على:", options: ["قانون الجيب وجيب التمام (sin & cos)", "قانون فيثاغورس فقط", "الجمع الجبري المباشر", "الضرب الاتجاهي"], correct: 0, answer: null },
+        { id: 4, title: "4. إذا كانت المركبة الأفقية لمتجه تساوي صفراً، فهذا يعني أن المتجه:", options: ["ينطبق على محور السينات", "ينطبق على محور الصادات", "يميل بزاوية 45 درجة", "مقداره يساوي صفراً"], correct: 1, answer: null },
+        { id: 5, title: "5. حاصل الضرب القياسي لمتجهين بينهما زاوية 90 درجة يساوي:", options: ["حاصل ضرب مقداريهما", "صفر", "واحد صحيح", "قيمة سالبة"], correct: 1, answer: null },
+        { id: 6, title: "6. متى يكون حاصل الضرب الاتجاهي لمتجهين مساوياً للصفر؟", options: ["إذا كانا متعامدين", "إذا كانا في نفس الاتجاه أو متضادين تماماً", "إذا كانت الزاوية بينهما 45 درجة", "لا يمكن أن يساوي صفراً"], correct: 1, answer: null },
+        { id: 7, title: "7. الكمية القياسية تتميز بأن لها:", options: ["مقدار واتجاه معاً", "اتجاه فقط بدون مقدار", "مقدار فقط بدون اتجاه محدد", "ليس لها وحدة قياس"], correct: 2, answer: null },
+        { id: 8, title: "8. إذا صنع متجه مع محور الصادات زاوية θ، فإن مركبته الرأسية تعطى بالعلاقة:", options: ["A cos(θ)", "A sin(θ)", "A tan(θ)", "صفر"], correct: 0, answer: null },
+        { id: 9, title: "9. إذا تضاعف مقدار متجه مرتين وأصبح في عكس الاتجاه الأصلي، فإن المتجه يضرب في معامل مقداره:", options: ["+2", "-2", "صفر", "0.5"], correct: 1, answer: null },
+        { id: 10, title: "10. إذا كانت قيمة المركبة الرأسية لمتجه تساوي قيمته الأفقية تماماً، فهذا يدل على أن زاوية ميله مع الأفقي تساوي:", options: ["30 درجة", "45 درجة", "60 درجة", "90 درجة"], correct: 1, answer: null },
+        { id: 11, title: "11. اتجاه محصلة متجهين متعامدين يُحدد رياضياً باستخدام الدالة المثلثية:", options: ["الظل (tan)", "الجيب (sin)", "جيب التمام (cos)", "مقطوع المحورين"], correct: 0, answer: null },
+        { id: 12, title: "12. أي من العمليات الآتية تعطي كمية قياسية وليست متجهة؟", options: ["جمع متجهات", "تحليل متجه", "الضرب القياسي لمتجهين (Dot Product)", "الضرب الاتجاهي لمتجهين"], correct: 2, answer: null },
+        { id: 13, title: "13. إذا كان المتجه A يوازي المتجه B تماماً وفي نفس الاتجاه، فإن الزاوية بينهما تساوي:", options: ["0 درجة", "90 درجة", "180 درجة", "270 درجة"], correct: 0, answer: null },
+        { id: 14, title: "14. القوة كمية متجهة لأنها تعتمد أساساً على:", options: ["المقدار فقط", "المقدار واتجاه التأثير في الجسم", "الكتلة والزمن فقط", "سرعة الجسم النهائية"], correct: 1, answer: null },
+        { id: 15, title: "15. إذا كانت محصلة ثلاث قوى تؤثر في جسم تساوي صفراً، فهذا يعني أن القوى في حالة:", options: ["حركة بعجلة منتظمة", "اتزان (Equilibrium)", "سقوط حر", "انعدام كتلة تام"], correct: 1, answer: null },
+        { id: 16, title: "16. إذا زادت زاوية ميل المتجه مع المحور الأفقي من 30 إلى 60 درجة بثبوت المقدار، فإن المركبة الرأسية له:", options: ["تقل", "تزداد", "تظل ثابتة", "تساوي صفراً"], correct: 1, answer: null },
+        { id: 17, title: "17. متى تكون قيمة حاصل الضرب الاتجاهي لمتجهين أكبر ما يمكن؟", options: ["عندما يكونان في نفس الاتجاه", "عندما يكونان متعامدين", "عندما يكونان متضادين", "لا توجد إجابة"], correct: 1, answer: null },
+        { id: 18, title: "18. حاصل الإحداثي الاتجاهي لجمع متصل لمتجهين متعامدين يُحسب بقاعدة:", options: ["فيثاغورس", "الجمع الجبري المباشر", "طرح القيمتين", "الضرب القياسي"], correct: 0, answer: null },
+        { id: 19, title: "19. إذا كانت محصلة متجهين تساوي صفر، فهذا يعني أن المتجهين:", options: ["متساويان في المقدار وفي نفس الاتجاه", "متساويان في المقدار ومتضادان في الاتجاه", "متعامدان", "غير ذلك"], correct: 1, answer: null },
+        { id: 20, title: "20. السرعة النسبية لجسم يتحرك في عكس اتجاه مراقب يراها:", options: ["مجموع السرعتين", "الفرق بين السرعتين", "سرعة أحدهما فقط", "صفر"], correct: 0, answer: null },
+
+        /* 10 مسائل حسابية بدون معطيات مضافة */
+        { id: 21, title: "21. متجهان متعامدان مقدار الأول 6 وحدات ومقدار الثاني 8 وحدات، فإن مقدار محصلتهما يساوي:", options: ["14 وحدة", "2 وحدة", "10 وحدات", "48 وحدة"], correct: 2, answer: null },
+        { id: 22, title: "22. إذا تحرك جسم في مسار دائري قاطعاً ربع الدورة، فإن النسبة بين المسافة المقطوعة والإزاحة الكلية تساوي:", options: ["ط ÷ (2 × جذر 2)", "(2 × جذر 2) ÷ ط", "1 ÷ 1", "ط ÷ 4"], correct: 1, answer: null },
+        { id: 23, title: "23. متجهان مقدارهما 5 وحدات و 12 وحدة، ما هي القيمة التي لا يمكن أن تكون محصلة لهما؟", options: ["7 وحدات", "13 وحدة", "15 وحدة", "4 وحدات"], correct: 3, answer: null },
+        { id: 24, title: "24. إذا كانت زاوية ميل متجه على المحور الأفقي 60 درجة ومقداره 10 وحدات، فإن مركبته الأفقية تساوي تقريباً:", options: ["5 وحدات", "8.66 وحدة", "10 وحدات", "7.07 وحدة"], correct: 0, answer: null },
+        { id: 25, title: "25. سيارتان تحركان في نفس الاتجاه بسرعة 90 كم/س و 60 كم/س، فإن السرعة النسبية للأولى بالنسبة للثانية تساوي:", options: ["150 كم/س", "30 كم/س", "60 كم/س", "90 كم/س"], correct: 1, answer: null },
+        { id: 26, title: "26. إذا كانت محصلة قوتين متعامدتين هي 50 نيوتن وإحداهما 30 نيوتن، فإن القوة الأخرى تساوي:", options: ["20 نيوتن", "40 نيوتن", "58 نيوتن", "80 نيوتن"], correct: 1, answer: null },
+        { id: 27, title: "27. طائرة تطير شرقا بسرعة 400 كم/س، وهبت رياح من الغرب للشرق بسرعة 50 كم/س، فالسرعة المحصلة للطائرة تصبح:", options: ["350 كم/س", "450 كم/س", "400 كم/س", "200 كم/س"], correct: 1, answer: null },
+        { id: 28, title: "28. قطار يتحرك بسرعة 80 كم/س، ومراقب يقف على رصيف المحطة يرصد القطار، فإن سرعة القطار بالنسبة للمراقب تساوي:", options: ["صفر", "80 كم/س", "40 كم/س", "160 كم/س"], correct: 1, answer: null },
+        { id: 29, title: "29. متجهان مقدارهما 3 وحدات و 4 وحدات ومحصلتهما 5 وحدات، إذن الزاوية بينهما تساوي:", options: ["0 درجة", "90 درجة", "180 درجة", "60 درجة"], correct: 1, answer: null },
+        { id: 30, title: "30. إذا تحرك جسم مسافة 4 متر شمالاً ثم 3 متر شرقاً، فإن مقدار الإزاحة الكلية يساوي:", options: ["7 متر", "1 متر", "5 متر", "12 متر"], correct: 2, answer: null }
+    ];
+
+    let currentIdx = 0;
+    let startTime = Date.now();
+
+    window.onload = function() {
+        let studentName = localStorage.getItem('studentName');
+        if (!studentName) {
+            window.location.href = 'physics.html';
+            return;
+        }
+        document.getElementById('studentDisplay').innerText = 'الطالب/ة: ' + studentName;
+        buildQuizDOM();
+        updateStatus();
+    };
+
+    function buildQuizDOM() {
+        let container = document.getElementById('quizContainer');
+        container.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            let card = document.createElement('div');
+            card.className = 'question-card ' + (index === 0 ? 'active' : '');
+            card.id = 'qCard_' + index;
+
+            let titleHTML = `<div class="question-title">${q.title}</div>`;
+            let optionsHTML = '<div class="options-list">';
+            
+            q.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <div class="option-item" id="opt_${index}_${optIdx}" onclick="selectOption(${index}, ${optIdx})">
+                        <div class="option-circle"></div>
+                        <div class="option-text">${opt}</div>
+                    </div>
+                `;
+            });
+            optionsHTML += '</div>';
+
+            card.innerHTML = titleHTML + optionsHTML;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, optIdx) {
+        questions[qIdx].answer = optIdx;
+        for (let i = 0; i < questions[qIdx].options.length; i++) {
+            let item = document.getElementById(`opt_${qIdx}_${i}`);
+            if (i === optIdx) {
+                item.classList.add('selected');
+            } else {
+                item.classList.remove('selected');
+            }
+        }
+        updateStatus();
+    }
+
+    function updateStatus() {
+        let answeredCount = questions.filter(q => q.answer !== null).length;
+        document.getElementById('questionCounter').innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+        document.getElementById('answeredStatus').innerText = `المحلول: ${answeredCount} / ${questions.length}`;
+        document.getElementById('prevBtn').disabled = currentIdx === 0;
+
+        let nextBtn = document.getElementById('nextBtn');
+        let submitBtn = document.getElementById('submitBtn');
+
+        if (currentIdx === questions.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'block';
+        } else {
+            nextBtn.style.display = 'block';
+            submitBtn.style.display = 'none';
+        }
+    }
+
+    function nextQuestion() {
+        if (currentIdx < questions.length - 1) {
+            document.getElementById('qCard_' + currentIdx).classList.remove('active');
+            currentIdx++;
+            document.getElementById('qCard_' + currentIdx).classList.add('active');
+            updateStatus();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentIdx > 0) {
+            document.getElementById('qCard_' + currentIdx).classList.remove('active');
+            currentIdx--;
+            document.getElementById('qCard_' + currentIdx).classList.add('active');
+            updateStatus();
+        }
+    }
+
+    function trySubmitQuiz() {
+        let answeredCount = questions.filter(q => q.answer !== null).length;
+
+        if (answeredCount < questions.length) {
+            document.getElementById('alertModal').style.display = 'flex';
+        } else {
+            calculateAndSendResult();
+            document.getElementById('successModal').style.display = 'flex';
+        }
+    }
+
+    function closeAlertModal() {
+        document.getElementById('alertModal').style.display = 'none';
+    }
+
+    function calculateAndSendResult() {
+        let studentName = localStorage.getItem('studentName') || 'طالب مجهول';
+        let score = 0;
+        let errorsList = "";
+
+        questions.forEach((q, idx) => {
+            if (q.answer === q.correct) {
+                score++;
+            } else {
+                let studentAnsText = q.options[q.answer];
+                let correctAnsText = q.options[q.correct];
+                errorsList += `\n❌ س${idx + 1}: ${q.title}\n   - إجابة الطالب: ${studentAnsText}\n   - التصحيح: ${correctAnsText}\n`;
+            }
+        });
+
+        let percentage = ((score / questions.length) * 100).toFixed(1);
+        
+        // حساب الوقت المستغرق
+        let totalSeconds = Math.floor((Date.now() - startTime) / 1000);
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+        let timeSpentText = `${minutes} دقيقة و ${seconds} ثانية`;
+
+        // رابط الـ Web App الخاص بك مضاف هنا مباشرة
+        let webAppUrl = "https://script.google.com/macros/s/AKfycby1WUckOwDZT_JnlWjmsSaSjnfGrVJtKhmrJErc1_1Wly9IXJhh1LqU-b6fnWokvvZQ/exec";
+
+        // إرسال البيانات إلى Google Apps Script لتبعت إشعار التليجرام
+        fetch(webAppUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                studentName: studentName,
+                score: score,
+                total: questions.length,
+                percentage: percentage,
+                timeSpent: timeSpentText,
+                errorsList: errorsList
+            })
+        }).catch(err => console.log('Error sending data:', err));
+    }
+
+    function finishAndRedirect() {
+        window.location.href = 'physics.html';
+    }
+</script>
+
+</body>
+</html>

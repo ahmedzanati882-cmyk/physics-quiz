@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة الاختبارات التعليمية</title>
+<style>
+*{
+    box-sizing: border-box;
+    font-family: Tahoma, Arial, sans-serif;
+}
+body{
+    margin: 0;
+    background: #eef2f7; /* خلفية هادئة ومريحة للعين */
+    color: #222;
+}
+header{
+    background: #182848;
+    color: white;
+    padding: 30px 15px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+}
+.developer-tag {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: monospace;
+    letter-spacing: 0.5px;
+}
+header h1{
+    margin: 10px 0 10px;
+    font-size: 28px;
+}
+header p{
+    margin: 0;
+    opacity: 0.9;
+    font-size: 16px;
+}
+.container{
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+.section-title{
+    font-size: 20px;
+    font-weight: bold;
+    color: #182848;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.card{
+    border-radius: 15px;
+    padding: 25px 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.card .icon{
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+.card h3{
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+/* ألوان مخصصة لكل مربع */
+.card.physics { background: linear-gradient(135deg, #0d6efd, #0dcaf0); }
+.card.biology { background: linear-gradient(135deg, #198754, #20c997); }
+.card.chemistry { background: linear-gradient(135deg, #ffc107, #fd7e14); }
+.card.math { background: linear-gradient(135deg, #6f42c1, #d63384); }
+
+@media(max-width: 600px){
+    header h1{
+        font-size: 22px;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <!-- اسمك في الزاوية العلوية على اليمين -->
+    <div class="developer-tag">Ahmed_3mr</div>
+    
+    <h1>🎓 منصة الاختبارات التعليمية</h1>
+    <p>اختر المادة الدراسية لبدء الاختبارات والتقييمات</p>
+</header>
+
+<div class="container">
+    <div class="section-title">المواد الدراسية</div>
+    
+    <div class="grid">
+        <!-- مربعات المواد بالألوان والأيموجي -->
+        <a href="physics.html" class="card physics">
+            <div class="icon">⚡</div>
+            <h3>الفيزياء</h3>
+        </a>
+
+        <div class="card biology" onclick="alert('قريباً سيتم تفعيل مادة الأحياء!')">
+            <div class="icon">🧬</div>
+            <h3>الأحياء</h3>
+        </div>
+
+        <div class="card chemistry" onclick="alert('قريباً سيتم تفعيل مادة الكيمياء!')">
+            <div class="icon">🧪</div>
+            <h3>الكيمياء</h3>
+        </div>
+
+        <div class="card math" onclick="alert('قريباً سيتم تفعيل مادة الرياضيات!')">
+            <div class="icon">📐</div>
+            <h3>الرياضيات</h3>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فهرس مادة الفيزياء</title>
+<style>
+*{
+    box-sizing: border-box;
+    font-family: Tahoma, Arial, sans-serif;
+}
+body{
+    margin: 0;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+header{
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+    padding: 20px 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.back-btn {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.back-btn:hover {
+    background: rgba(255,255,255,0.35);
+}
+.developer-tag {
+    font-size: 12px;
+    background: rgba(0,0,0,0.15);
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: #fde047;
+}
+.header-title {
+    text-align: center;
+}
+header h1{
+    margin: 0 0 5px 0;
+    font-size: 22px;
+}
+.subtitle {
+    margin: 0;
+    font-size: 13px;
+    color: #e2e8f0;
+}
+.container{
+    max-width: 800px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
+.lesson-card{
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+.lesson-title{
+    font-size: 17px;
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+.quiz-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.quiz-btn{
+    background: linear-gradient(135deg, #2563eb, #0ea5e9);
+    color: white;
+    padding: 12px 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    transition: transform 0.2s, opacity 0.2s;
+}
+.quiz-btn:hover{
+    transform: scale(1.01);
+    opacity: 0.95;
+}
+
+/* تنسيق النافذة المنبثقة */
+#nameModal {
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(15, 23, 42, 0.6); 
+    backdrop-filter: blur(5px);
+    z-index: 1000; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+}
+.modal-content {
+    background: #ffffff; 
+    padding: 30px 20px; 
+    border-radius: 20px; 
+    width: 100%; 
+    max-width: 380px; 
+    text-align: center; 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <a href="index.html" class="back-btn">← الرئيسية</a>
+        <div class="developer-tag">Ahmed_3mr ⚡</div>
+    </div>
+    <div class="header-title">
+        <h1>⚛️ مادة الفيزياء</h1>
+        <p class="subtitle">الصف الثاني الثانوي - البكالوريا</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- الدرس الأول فقط -->
+    <div class="lesson-card">
+        <div class="lesson-title">الدرس الأول: متجهات السرعة والسرعة النسبية</div>
+        <div class="quiz-list">
+            <!-- زر الاختبار بيربط الدالة اللي بتفتح المربع المنبثق -->
+            <a href="#" onclick="openNameModal('physics_quiz1.html'); return false;" class="quiz-btn">
+                <span>📝 الاختبار الأول (شامل الدرس)</span>
+                <span>←</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- نافذة إدخال الاسم الثلاثي المنبثقة -->
+<div id="nameModal">
+    <div class="modal-content">
+        <h3 style="color: #1e3a8a; margin-top: 0; font-size: 18px;">أدخل اسمك الثلاثي</h3>
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">الرجاء كتابة الاسم بوضوح ليتم تسجيله وإرساله للمعلم.</p>
+        
+        <input type="text" id="studentFullName" placeholder="مثال: أحمد محمد علي" style="width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 10px; font-size: 15px; text-align: right; margin-bottom: 20px; outline: none; background: #f8fafc;">
+        
+        <div style="display: flex; gap: 10px;">
+            <button onclick="startQuiz()" style="flex: 1; background: #2563eb; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer;">بدء الاختبار</button>
+            <button onclick="closeNameModal()" style="flex: 1; background: #e2e8f0; color: #475569; border: none; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer;">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let targetQuizUrl = '';
+
+    function openNameModal(quizUrl) {
+        targetQuizUrl = quizUrl; // حفظ رابط الاختبار المستهدف
+        document.getElementById('nameModal').style.display = 'flex';
+    }
+
+    function closeNameModal() {
+        document.getElementById('nameModal').style.display = 'none';
+    }
+
+    function startQuiz() {
+        let nameInput = document.getElementById('studentFullName').value.trim();
+        if (nameInput.split(' ').length < 3) {
+            alert('الرجاء إدخال الاسم ثلاثياً بشكل صحيح!');
+            return;
+        }
+        // حفظ الاسم في المتصفح لاستخدامه في صفحة الاختبار للبوت
+        localStorage.setItem('studentName', nameInput);
+        // الانتقال لصفحة الاختبار المحددة
+        window.location.href = targetQuizUrl;
+    }
+
+    // زر الرجوع الخاص بالموبايل يرجع للرئيسية
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        location.href = 'index.html';
+    };
+</script>
+
+</body>
+</html>
